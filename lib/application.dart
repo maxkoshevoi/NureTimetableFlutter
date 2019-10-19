@@ -10,12 +10,13 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(builder: (context) => ThemeBloc()),
-        BlocProvider(builder: (context) => TimetableBloc()),
+        BlocProvider<ThemeBloc>(builder: (context) => ThemeBloc()),
+        BlocProvider<TimetableBloc>(builder: (context) => TimetableBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeData>(
         builder: (context, theme) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: StringProvider.of(context).appName,
             home: TimetablePage(),
             theme: theme,

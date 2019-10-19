@@ -11,6 +11,44 @@ class TimetablePage extends StatefulWidget {
 }
 
 class _TimetablePageState extends State<TimetablePage> {
+  static const int _startWeekday = DateTime.monday;
+  static const int _maxDaysBefore = 365;
+  static const int _daysPerPage = 7;
+  static const int _lessonPerDay = 7;
+
+  DateTime _anchor;
+  PageController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_controller == null) {
+      _init();
+    }
+  }
+
+  void _init() {
+    _anchor = DateTime.now().subtract(Duration(days: _maxDaysBefore));
+    while (_anchor.weekday != _startWeekday) {
+      _anchor = _anchor.subtract(Duration(days: 1));
+    }
+
+    int daysBefore = DateTime.now().difference(_anchor).inDays;
+    _controller = PageController(initialPage: (daysBefore / _daysPerPage).floor());
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _onAboutTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -30,9 +68,8 @@ class _TimetablePageState extends State<TimetablePage> {
           return Center(
             child: Column(
               children: <Widget>[
-                Text(
-                  '$state',
-                  style: TextStyle(fontSize: 24.0),
+                Expanded(
+                  child: _buildTimetable(_daysPerPage),
                 ),
                 RaisedButton(
                   child: Text(StringProvider.of(context).about),
@@ -45,4 +82,73 @@ class _TimetablePageState extends State<TimetablePage> {
       ),
     );
   }
+
+  Widget _buildTimetable(int daysPerPage) {
+    return Row(
+      children: <Widget>[
+        Column(
+          children: [
+            _buildDate(DateTime.now()),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(_lessonPerDay, (i) => Text("$i")),
+              ),
+            ),
+          ],
+        ),
+        Expanded(
+          child: PageView.custom(
+            controller: _controller,
+            childrenDelegate: SliverChildBuilderDelegate(
+              (context, i) {
+                return _buildDay(
+                  daysPerPage,
+                  _anchor.add(Duration(days: daysPerPage * i)),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDate(DateTime date) {
+    return Container(
+      color: Colors.grey,
+      height: 36,
+      child: Text(
+        _dateToString(date),
+      ),
+    );
+  }
+
+  Widget _buildDay(int daysPerPage, DateTime startDate) {
+    return Row(
+      children: List.generate(
+        daysPerPage,
+        (i) => _buildDayColumn(i, startDate),
+      ),
+    );
+  }
+
+  Widget _buildDayColumn(int index, DateTime startDate) {
+    DateTime currentDate = startDate.add(Duration(days: index));
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          _buildDate(currentDate),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(_lessonPerDay, (i) => Text("$i")),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  String _dateToString(DateTime date) => "${date.year}/${date.month}/${date.day}";
 }

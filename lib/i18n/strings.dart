@@ -12,6 +12,12 @@ abstract class IStrings {
   String get about;
 
   String get timetable;
+
+  String get settings;
+
+  String get toggleTheme;
+
+  String get daysPerPage;
 }
 
 class _EnglishWords implements IStrings {
@@ -23,4 +29,13 @@ class _EnglishWords implements IStrings {
 
   @override
   String get timetable => 'Timetable';
+
+  @override
+  String get settings => "Settings";
+
+  @override
+  String get toggleTheme => "Toggle theme";
+
+  @override
+  String get daysPerPage => "Days per page";
 }

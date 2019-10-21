@@ -1,1 +1,9 @@
+export 'base_entity.dart';
+export 'dto/timetable_dto.dart';
+export 'event.dart';
+export 'event_type.dart';
+export 'group.dart';
 export 'lesson.dart';
+export 'room.dart';
+export 'room_type.dart';
+export 'teacher.dart';

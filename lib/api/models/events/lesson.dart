@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
+import '../models.dart';
+
 part 'lesson.jser.dart';
 
 class Lesson {
+  @Alias("id")
   final int id;
 
   @Alias("brief")
@@ -12,14 +15,10 @@ class Lesson {
   @Alias("title")
   final String fullName;
 
-//  [JsonProperty("hours")]
-//  List<HoursPlanned> Duration { get; set; }
+  @Alias("hours")
+  final List<HoursPlanned> duration;
 
-  Lesson({
-    @required this.id,
-    @required this.shortName,
-    @required this.fullName,
-  });
+  const Lesson(this.id, this.shortName, this.fullName, this.duration);
 }
 
 @GenSerializer()

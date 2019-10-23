@@ -14,14 +14,14 @@ abstract class _$SpecialitySerializer implements Serializer<Speciality> {
   Map<String, dynamic> toMap(Speciality model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'groups',
-        codeIterable(
-            model.groups, (val) => _groupSerializer.toMap(val as Group)));
+        codeNonNullIterable(
+            model.groups, (val) => _groupSerializer.toMap(val as Group), []));
     return ret;
   }
 
@@ -32,8 +32,8 @@ abstract class _$SpecialitySerializer implements Serializer<Speciality> {
         map['id'] as int ?? getJserDefault('id'),
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['full_name'] as String ?? getJserDefault('fullName'),
-        codeIterable<Group>(map['groups'] as Iterable,
-                (val) => _groupSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Group>(map['groups'] as Iterable,
+                (val) => _groupSerializer.fromMap(val as Map), <Group>[]) ??
             getJserDefault('groups'));
     return obj;
   }

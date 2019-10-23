@@ -14,14 +14,14 @@ abstract class _$DepartmentSerializer implements Serializer<Department> {
   Map<String, dynamic> toMap(Department model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'teachers',
-        codeIterable(
-            model.teachers, (val) => _teacherSerializer.toMap(val as Teacher)));
+        codeNonNullIterable(model.teachers,
+            (val) => _teacherSerializer.toMap(val as Teacher), []));
     return ret;
   }
 
@@ -32,8 +32,8 @@ abstract class _$DepartmentSerializer implements Serializer<Department> {
         map['id'] as int ?? getJserDefault('id'),
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['full_name'] as String ?? getJserDefault('fullName'),
-        codeIterable<Teacher>(map['teachers'] as Iterable,
-                (val) => _teacherSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Teacher>(map['teachers'] as Iterable,
+                (val) => _teacherSerializer.fromMap(val as Map), <Teacher>[]) ??
             getJserDefault('teachers'));
     return obj;
   }

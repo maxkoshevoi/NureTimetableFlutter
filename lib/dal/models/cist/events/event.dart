@@ -41,7 +41,7 @@ class Event {
   );
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class EventSerializer extends Serializer<Event> with _$EventSerializer {}
 
 

@@ -11,5 +11,5 @@ class Group {
   const Group(this.id, this.name);
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class GroupSerializer extends Serializer<Group> with _$GroupSerializer {}

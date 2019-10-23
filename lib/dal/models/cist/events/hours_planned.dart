@@ -15,5 +15,5 @@ class HoursPlanned {
   const HoursPlanned(this.eventTypeId, this.hours, this.teacherIds);
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class HoursPlannedSerializer extends Serializer<HoursPlanned> with _$HoursPlannedSerializer {}

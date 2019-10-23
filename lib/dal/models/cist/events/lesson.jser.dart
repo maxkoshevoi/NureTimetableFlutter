@@ -14,14 +14,14 @@ abstract class _$LessonSerializer implements Serializer<Lesson> {
   Map<String, dynamic> toMap(Lesson model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'brief', model.shortName);
-    setMapValue(ret, 'title', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'brief', model.shortName);
+    setMapValueIfNotNull(ret, 'title', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'hours',
-        codeIterable(model.duration,
-            (val) => _hoursPlannedSerializer.toMap(val as HoursPlanned)));
+        codeNonNullIterable(model.duration,
+            (val) => _hoursPlannedSerializer.toMap(val as HoursPlanned), []));
     return ret;
   }
 
@@ -32,8 +32,10 @@ abstract class _$LessonSerializer implements Serializer<Lesson> {
         map['id'] as int ?? getJserDefault('id'),
         map['brief'] as String ?? getJserDefault('shortName'),
         map['title'] as String ?? getJserDefault('fullName'),
-        codeIterable<HoursPlanned>(map['hours'] as Iterable,
-                (val) => _hoursPlannedSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<HoursPlanned>(
+                map['hours'] as Iterable,
+                (val) => _hoursPlannedSerializer.fromMap(val as Map),
+                <HoursPlanned>[]) ??
             getJserDefault('duration'));
     return obj;
   }

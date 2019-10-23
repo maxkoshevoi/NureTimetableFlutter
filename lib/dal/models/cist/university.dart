@@ -22,6 +22,7 @@ class University {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [FacultySerializer, BuildingSerializer],
 )
 class UniversitySerializer extends Serializer<University> with _$UniversitySerializer {}

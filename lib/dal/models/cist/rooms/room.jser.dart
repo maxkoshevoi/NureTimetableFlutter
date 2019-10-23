@@ -14,15 +14,15 @@ abstract class _$RoomSerializer implements Serializer<Room> {
   Map<String, dynamic> toMap(Room model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
     setMapValue(ret, 'floor', model.floor);
     setMapValue(ret, 'is_have_power', model.isHavePower);
-    setMapValue(
+    setMapValueIfNotNull(
         ret,
         'auditory_types',
-        codeIterable(model.roomTypes,
-            (val) => _roomTypeSerializer.toMap(val as RoomType)));
+        codeNonNullIterable(model.roomTypes,
+            (val) => _roomTypeSerializer.toMap(val as RoomType), []));
     return ret;
   }
 
@@ -34,8 +34,10 @@ abstract class _$RoomSerializer implements Serializer<Room> {
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['floor'] as int ?? getJserDefault('floor'),
         map['is_have_power'] as bool ?? getJserDefault('isHavePower'),
-        codeIterable<RoomType>(map['auditory_types'] as Iterable,
-                (val) => _roomTypeSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<RoomType>(
+                map['auditory_types'] as Iterable,
+                (val) => _roomTypeSerializer.fromMap(val as Map),
+                <RoomType>[]) ??
             getJserDefault('roomTypes'));
     return obj;
   }

@@ -20,6 +20,7 @@ class Speciality {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [GroupSerializer],
 )
 class SpecialitySerializer extends Serializer<Speciality> with _$SpecialitySerializer {}

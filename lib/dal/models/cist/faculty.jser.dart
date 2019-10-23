@@ -17,19 +17,19 @@ abstract class _$FacultySerializer implements Serializer<Faculty> {
   Map<String, dynamic> toMap(Faculty model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'departments',
-        codeIterable(model.departments,
-            (val) => _departmentSerializer.toMap(val as Department)));
-    setMapValue(
+        codeNonNullIterable(model.departments,
+            (val) => _departmentSerializer.toMap(val as Department), []));
+    setMapValueIfNotNull(
         ret,
         'directions',
-        codeIterable(model.directions,
-            (val) => _directionSerializer.toMap(val as Direction)));
+        codeNonNullIterable(model.directions,
+            (val) => _directionSerializer.toMap(val as Direction), []));
     return ret;
   }
 
@@ -40,11 +40,15 @@ abstract class _$FacultySerializer implements Serializer<Faculty> {
         map['id'] as int ?? getJserDefault('id'),
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['full_name'] as String ?? getJserDefault('fullName'),
-        codeIterable<Department>(map['departments'] as Iterable,
-                (val) => _departmentSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Department>(
+                map['departments'] as Iterable,
+                (val) => _departmentSerializer.fromMap(val as Map),
+                <Department>[]) ??
             getJserDefault('departments'),
-        codeIterable<Direction>(map['directions'] as Iterable,
-                (val) => _directionSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Direction>(
+                map['directions'] as Iterable,
+                (val) => _directionSerializer.fromMap(val as Map),
+                <Direction>[]) ??
             getJserDefault('directions'));
     return obj;
   }

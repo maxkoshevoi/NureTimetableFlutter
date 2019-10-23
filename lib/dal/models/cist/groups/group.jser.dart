@@ -11,8 +11,8 @@ abstract class _$GroupSerializer implements Serializer<Group> {
   Map<String, dynamic> toMap(Group model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'name', model.name);
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'name', model.name);
     return ret;
   }
 

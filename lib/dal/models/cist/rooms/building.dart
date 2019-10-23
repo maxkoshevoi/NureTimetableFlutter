@@ -20,6 +20,7 @@ class Building {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [RoomSerializer],
 )
 class BuildingSerializer extends Serializer<Building> with _$BuildingSerializer {}

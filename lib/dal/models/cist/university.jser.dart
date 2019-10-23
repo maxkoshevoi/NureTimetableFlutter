@@ -17,18 +17,18 @@ abstract class _$UniversitySerializer implements Serializer<University> {
   Map<String, dynamic> toMap(University model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'faculties',
-        codeIterable(model.faculties,
-            (val) => _facultySerializer.toMap(val as Faculty)));
-    setMapValue(
+        codeNonNullIterable(model.faculties,
+            (val) => _facultySerializer.toMap(val as Faculty), []));
+    setMapValueIfNotNull(
         ret,
         'buildings',
-        codeIterable(model.buildings,
-            (val) => _buildingSerializer.toMap(val as Building)));
+        codeNonNullIterable(model.buildings,
+            (val) => _buildingSerializer.toMap(val as Building), []));
     return ret;
   }
 
@@ -38,11 +38,13 @@ abstract class _$UniversitySerializer implements Serializer<University> {
     final obj = University(
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['full_name'] as String ?? getJserDefault('fullName'),
-        codeIterable<Faculty>(map['faculties'] as Iterable,
-                (val) => _facultySerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Faculty>(map['faculties'] as Iterable,
+                (val) => _facultySerializer.fromMap(val as Map), <Faculty>[]) ??
             getJserDefault('faculties'),
-        codeIterable<Building>(map['buildings'] as Iterable,
-                (val) => _buildingSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Building>(
+                map['buildings'] as Iterable,
+                (val) => _buildingSerializer.fromMap(val as Map),
+                <Building>[]) ??
             getJserDefault('buildings'));
     return obj;
   }

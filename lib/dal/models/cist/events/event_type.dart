@@ -21,5 +21,5 @@ class EventType {
   const EventType(this.id, this.shortName, this.fullName, this.baseTypeId, this.englishBaseName);
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class EventTypeSerializer extends Serializer<EventType> with _$EventTypeSerializer {}

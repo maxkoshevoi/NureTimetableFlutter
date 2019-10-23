@@ -11,10 +11,10 @@ abstract class _$HoursPlannedSerializer implements Serializer<HoursPlanned> {
   Map<String, dynamic> toMap(HoursPlanned model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'type', model.eventTypeId);
-    setMapValue(ret, 'val', model.hours);
-    setMapValue(
-        ret, 'teachers', codeIterable(model.teacherIds, (val) => val as int));
+    setMapValueIfNotNull(ret, 'type', model.eventTypeId);
+    setMapValueIfNotNull(ret, 'val', model.hours);
+    setMapValueIfNotNull(ret, 'teachers',
+        codeNonNullIterable(model.teacherIds, (val) => val as int, []));
     return ret;
   }
 
@@ -24,7 +24,8 @@ abstract class _$HoursPlannedSerializer implements Serializer<HoursPlanned> {
     final obj = HoursPlanned(
         map['type'] as int ?? getJserDefault('eventTypeId'),
         map['val'] as int ?? getJserDefault('hours'),
-        codeIterable<int>(map['teachers'] as Iterable, (val) => val as int) ??
+        codeNonNullIterable<int>(
+                map['teachers'] as Iterable, (val) => val as int, <int>[]) ??
             getJserDefault('teacherIds'));
     return obj;
   }

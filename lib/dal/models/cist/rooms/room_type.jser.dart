@@ -11,8 +11,8 @@ abstract class _$RoomTypeSerializer implements Serializer<RoomType> {
   Map<String, dynamic> toMap(RoomType model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
     return ret;
   }
 

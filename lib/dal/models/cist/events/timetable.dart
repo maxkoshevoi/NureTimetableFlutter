@@ -26,6 +26,7 @@ class Timetable {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [EventSerializer, GroupSerializer, TeacherSerializer, LessonSerializer, EventTypeSerializer],
 )
 class TimetableSerializer extends Serializer<Timetable> with _$TimetableSerializer {}

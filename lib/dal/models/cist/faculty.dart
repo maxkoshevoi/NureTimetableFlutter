@@ -25,6 +25,7 @@ class Faculty {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [DepartmentSerializer, DirectionSerializer],
 )
 class FacultySerializer extends Serializer<Faculty> with _$FacultySerializer {}

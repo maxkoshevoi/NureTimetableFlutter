@@ -11,9 +11,9 @@ abstract class _$TeacherSerializer implements Serializer<Teacher> {
   Map<String, dynamic> toMap(Teacher model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
     return ret;
   }
 

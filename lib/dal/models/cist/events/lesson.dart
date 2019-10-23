@@ -20,6 +20,7 @@ class Lesson {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [HoursPlannedSerializer],
 )
 class LessonSerializer extends Serializer<Lesson> with _$LessonSerializer {}

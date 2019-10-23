@@ -11,6 +11,7 @@ class UniversityRootObject {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [UniversitySerializer],
 )
 class UniversityRootObjectSerializer extends Serializer<UniversityRootObject> with _$UniversityRootObjectSerializer {}

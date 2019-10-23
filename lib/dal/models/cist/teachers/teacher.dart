@@ -15,5 +15,5 @@ class Teacher {
   const Teacher(this.id, this.shortName, this.fullName);
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class TeacherSerializer extends Serializer<Teacher> with _$TeacherSerializer {}

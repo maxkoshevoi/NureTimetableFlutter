@@ -12,5 +12,5 @@ class RoomType {
   const RoomType(this.id, this.shortName);
 }
 
-@GenSerializer()
+@GenSerializer(nullableFields: false)
 class RoomTypeSerializer extends Serializer<RoomType> with _$RoomTypeSerializer {}

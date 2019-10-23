@@ -23,6 +23,7 @@ class Direction {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [GroupSerializer, SpecialitySerializer],
 )
 class DirectionSerializer extends Serializer<Direction> with _$DirectionSerializer {}

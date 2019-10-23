@@ -26,32 +26,32 @@ abstract class _$TimetableSerializer implements Serializer<Timetable> {
   Map<String, dynamic> toMap(Timetable model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'time-zone', model.timeZone);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'time-zone', model.timeZone);
+    setMapValueIfNotNull(
         ret,
         'events',
-        codeIterable(
-            model.events, (val) => _eventSerializer.toMap(val as Event)));
-    setMapValue(
+        codeNonNullIterable(
+            model.events, (val) => _eventSerializer.toMap(val as Event), []));
+    setMapValueIfNotNull(
         ret,
         'groups',
-        codeIterable(
-            model.groups, (val) => _groupSerializer.toMap(val as Group)));
-    setMapValue(
+        codeNonNullIterable(
+            model.groups, (val) => _groupSerializer.toMap(val as Group), []));
+    setMapValueIfNotNull(
         ret,
         'teachers',
-        codeIterable(
-            model.teachers, (val) => _teacherSerializer.toMap(val as Teacher)));
-    setMapValue(
+        codeNonNullIterable(model.teachers,
+            (val) => _teacherSerializer.toMap(val as Teacher), []));
+    setMapValueIfNotNull(
         ret,
         'subjects',
-        codeIterable(
-            model.lessons, (val) => _lessonSerializer.toMap(val as Lesson)));
-    setMapValue(
+        codeNonNullIterable(model.lessons,
+            (val) => _lessonSerializer.toMap(val as Lesson), []));
+    setMapValueIfNotNull(
         ret,
         'types',
-        codeIterable(model.eventTypes,
-            (val) => _eventTypeSerializer.toMap(val as EventType)));
+        codeNonNullIterable(model.eventTypes,
+            (val) => _eventTypeSerializer.toMap(val as EventType), []));
     return ret;
   }
 
@@ -60,20 +60,22 @@ abstract class _$TimetableSerializer implements Serializer<Timetable> {
     if (map == null) return null;
     final obj = Timetable(
         map['time-zone'] as String ?? getJserDefault('timeZone'),
-        codeIterable<Event>(map['events'] as Iterable,
-                (val) => _eventSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Event>(map['events'] as Iterable,
+                (val) => _eventSerializer.fromMap(val as Map), <Event>[]) ??
             getJserDefault('events'),
-        codeIterable<Group>(map['groups'] as Iterable,
-                (val) => _groupSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Group>(map['groups'] as Iterable,
+                (val) => _groupSerializer.fromMap(val as Map), <Group>[]) ??
             getJserDefault('groups'),
-        codeIterable<Teacher>(map['teachers'] as Iterable,
-                (val) => _teacherSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Teacher>(map['teachers'] as Iterable,
+                (val) => _teacherSerializer.fromMap(val as Map), <Teacher>[]) ??
             getJserDefault('teachers'),
-        codeIterable<Lesson>(map['subjects'] as Iterable,
-                (val) => _lessonSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Lesson>(map['subjects'] as Iterable,
+                (val) => _lessonSerializer.fromMap(val as Map), <Lesson>[]) ??
             getJserDefault('lessons'),
-        codeIterable<EventType>(map['types'] as Iterable,
-                (val) => _eventTypeSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<EventType>(
+                map['types'] as Iterable,
+                (val) => _eventTypeSerializer.fromMap(val as Map),
+                <EventType>[]) ??
             getJserDefault('eventTypes'));
     return obj;
   }

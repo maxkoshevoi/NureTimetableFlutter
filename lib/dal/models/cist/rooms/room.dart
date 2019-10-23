@@ -10,10 +10,10 @@ class Room {
   @Alias("short_name")
   final String shortName;
 
-  @Alias("floor")
+  @Alias("floor", isNullable: true)
   final int floor;
 
-  @Alias("is_have_power")
+  @Alias("is_have_power", isNullable: true)
   //[JsonConverter(typeof(StringBoolConverter))]
   final bool isHavePower;
 
@@ -24,7 +24,8 @@ class Room {
 }
 
 @GenSerializer(
-  serializers: [RoomTypeSerializer],
+  nullableFields: false,
+  serializers: [RoomTypeSerializer]
 )
 class RoomSerializer extends Serializer<Room> with _$RoomSerializer {}
 

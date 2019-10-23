@@ -17,19 +17,19 @@ abstract class _$DirectionSerializer implements Serializer<Direction> {
   Map<String, dynamic> toMap(Direction model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(
         ret,
         'groups',
-        codeIterable(
-            model.groups, (val) => _groupSerializer.toMap(val as Group)));
-    setMapValue(
+        codeNonNullIterable(
+            model.groups, (val) => _groupSerializer.toMap(val as Group), []));
+    setMapValueIfNotNull(
         ret,
         'specialities',
-        codeIterable(model.specialities,
-            (val) => _specialitySerializer.toMap(val as Speciality)));
+        codeNonNullIterable(model.specialities,
+            (val) => _specialitySerializer.toMap(val as Speciality), []));
     return ret;
   }
 
@@ -40,11 +40,13 @@ abstract class _$DirectionSerializer implements Serializer<Direction> {
         map['id'] as int ?? getJserDefault('id'),
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['full_name'] as String ?? getJserDefault('fullName'),
-        codeIterable<Group>(map['groups'] as Iterable,
-                (val) => _groupSerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Group>(map['groups'] as Iterable,
+                (val) => _groupSerializer.fromMap(val as Map), <Group>[]) ??
             getJserDefault('groups'),
-        codeIterable<Speciality>(map['specialities'] as Iterable,
-                (val) => _specialitySerializer.fromMap(val as Map)) ??
+        codeNonNullIterable<Speciality>(
+                map['specialities'] as Iterable,
+                (val) => _specialitySerializer.fromMap(val as Map),
+                <Speciality>[]) ??
             getJserDefault('specialities'));
     return obj;
   }

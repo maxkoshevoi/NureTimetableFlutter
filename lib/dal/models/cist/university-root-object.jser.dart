@@ -15,7 +15,7 @@ abstract class _$UniversityRootObjectSerializer
   Map<String, dynamic> toMap(UniversityRootObject model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(
+    setMapValueIfNotNull(
         ret, 'university', _universitySerializer.toMap(model.university));
     return ret;
   }

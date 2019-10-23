@@ -11,11 +11,11 @@ abstract class _$EventTypeSerializer implements Serializer<EventType> {
   Map<String, dynamic> toMap(EventType model) {
     if (model == null) return null;
     Map<String, dynamic> ret = <String, dynamic>{};
-    setMapValue(ret, 'id', model.id);
-    setMapValue(ret, 'short_name', model.shortName);
-    setMapValue(ret, 'full_name', model.fullName);
-    setMapValue(ret, 'id_base', model.baseTypeId);
-    setMapValue(ret, 'type', model.englishBaseName);
+    setMapValueIfNotNull(ret, 'id', model.id);
+    setMapValueIfNotNull(ret, 'short_name', model.shortName);
+    setMapValueIfNotNull(ret, 'full_name', model.fullName);
+    setMapValueIfNotNull(ret, 'id_base', model.baseTypeId);
+    setMapValueIfNotNull(ret, 'type', model.englishBaseName);
     return ret;
   }
 

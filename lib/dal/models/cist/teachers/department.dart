@@ -20,6 +20,7 @@ class Department {
 }
 
 @GenSerializer(
+  nullableFields: false,
   serializers: [TeacherSerializer],
 )
 class DepartmentSerializer extends Serializer<Department> with _$DepartmentSerializer {}

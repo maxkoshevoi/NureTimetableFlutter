@@ -26,6 +26,6 @@ class Room {
 @GenSerializer(
   nullableFields: false,
   serializers: [RoomTypeSerializer],
-  fields: const {"is_have_power": const Field(processor: const SwapProcessor({ "1": true, "0": false }))}
+  fields: const {"isHavePower": const Field(processor: const StringBoolProcessor())} // this should be is_have_power?
 )
 class RoomSerializer extends Serializer<Room> with _$RoomSerializer {}

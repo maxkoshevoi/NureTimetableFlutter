@@ -7,6 +7,7 @@ part of 'room.dart';
 // **************************************************************************
 
 abstract class _$RoomSerializer implements Serializer<Room> {
+  final _stringBoolProcessor = const StringBoolProcessor();
   Serializer<RoomType> __roomTypeSerializer;
   Serializer<RoomType> get _roomTypeSerializer =>
       __roomTypeSerializer ??= RoomTypeSerializer();
@@ -17,7 +18,8 @@ abstract class _$RoomSerializer implements Serializer<Room> {
     setMapValueIfNotNull(ret, 'id', model.id);
     setMapValueIfNotNull(ret, 'short_name', model.shortName);
     setMapValue(ret, 'floor', model.floor);
-    setMapValue(ret, 'is_have_power', model.isHavePower);
+    setMapValueIfNotNull(
+        ret, 'isHavePower', _stringBoolProcessor.serialize(model.isHavePower));
     setMapValueIfNotNull(
         ret,
         'auditory_types',
@@ -33,7 +35,8 @@ abstract class _$RoomSerializer implements Serializer<Room> {
         map['id'] as int ?? getJserDefault('id'),
         map['short_name'] as String ?? getJserDefault('shortName'),
         map['floor'] as int ?? getJserDefault('floor'),
-        map['is_have_power'] as bool ?? getJserDefault('isHavePower'),
+        _stringBoolProcessor.deserialize(map['isHavePower'] as String) ??
+            getJserDefault('isHavePower'),
         codeNonNullIterable<RoomType>(
                 map['auditory_types'] as Iterable,
                 (val) => _roomTypeSerializer.fromMap(val as Map),

@@ -42,8 +42,8 @@ class Event {
 @GenSerializer(
   nullableFields: false,
   fields: const {
-    "start_time": const Field(processor: const SecondsProcessor()),
-    "end_time": const Field(processor: const SecondsProcessor())
+    "startTime": const Field(processor: const SecondsProcessor()), // this should be start_time?
+    "endTime": const Field(processor: const SecondsProcessor()) // this should be end_time?
   }
 )
 class EventSerializer extends Serializer<Event> with _$EventSerializer {}

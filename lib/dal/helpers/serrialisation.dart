@@ -1,5 +1,9 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
+class StringBoolProcessor extends SwapProcessor<bool>{
+  const StringBoolProcessor() : super(const { "1": true, "0": false });
+}
+
 class SwapProcessor<FromType> implements FieldProcessor<FromType, String> {
   final Map<String, FromType> _replacementValues;
 

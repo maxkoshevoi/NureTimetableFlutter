@@ -1,4 +1,5 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
+import 'package:nure_timetable/dal/helpers/serrialisation.dart';
 
 part 'event.jser.dart';
 
@@ -7,11 +8,9 @@ class Event {
   final int lessonId;
 
   @Alias("start_time")
-  //[JsonConverter(typeof(SecondEpochConverter))]
   final DateTime startTime;
 
   @Alias("end_time")
-  //[JsonConverter(typeof(SecondEpochConverter))]
   final DateTime endTime;
 
   @Alias("type")
@@ -41,25 +40,11 @@ class Event {
   );
 }
 
-@GenSerializer(nullableFields: false)
+@GenSerializer(
+  nullableFields: false,
+  fields: const {
+    "start_time": const Field(processor: const SecondEpochProcessor()),
+    "end_time": const Field(processor: const SecondEpochProcessor())
+  }
+)
 class EventSerializer extends Serializer<Event> with _$EventSerializer {}
-
-
-// internal class SecondEpochConverter : DateTimeConverterBase
-// {
-//     private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-//     {
-//         if (reader.TokenType == JsonToken.Null)
-//         {
-//             return null;
-//         }
-//         return _epoch.AddSeconds((long)reader.Value);
-//     }
-
-//     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         writer.WriteRawValue(((DateTime)value - _epoch).TotalSeconds.ToString());
-//     }
-// }

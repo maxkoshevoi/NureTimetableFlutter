@@ -1,4 +1,5 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
+import 'package:nure_timetable/dal/helpers/serrialisation.dart';
 import '../models.dart';
 
 part 'room.jser.dart';
@@ -14,7 +15,6 @@ class Room {
   final int floor;
 
   @Alias("is_have_power", isNullable: true)
-  //[JsonConverter(typeof(StringBoolConverter))]
   final bool isHavePower;
 
   @Alias("auditory_types")
@@ -25,30 +25,7 @@ class Room {
 
 @GenSerializer(
   nullableFields: false,
-  serializers: [RoomTypeSerializer]
+  serializers: [RoomTypeSerializer],
+  fields: const {"is_have_power": const Field(processor: const SwapProcessor({ "1": true, "0": false }))}
 )
 class RoomSerializer extends Serializer<Room> with _$RoomSerializer {}
-
-
-// internal class StringBoolConverter: JsonConverter
-// {
-//     private readonly Dictionary<string, bool> replacementValues = new Dictionary<string, bool> { { "1", true }, { "0", false } };
-
-//     public override bool CanConvert(Type t) => t == typeof(bool?) || t == typeof(bool);
-
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-//     {
-//         string key = (string)reader.Value;
-//         if (key == null || !replacementValues.ContainsKey(key))
-//         {
-//             return null;
-//         }
-//         return replacementValues[key];
-//     }
-
-//     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         string newValue = replacementValues.FirstOrDefault(x => x.Value.Equals(value)).Key;
-//         serializer.Serialize(writer, newValue);
-//     }
-// }

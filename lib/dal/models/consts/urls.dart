@@ -7,8 +7,8 @@ class Urls {
     => "http://cist.nure.ua/ias/app/tt/P_API_EVEN_JSON" +
         "?type_id=${entity.index}" +
         "&timetable_id=${entityId}" +
-        "&time_from=${dateStart.Date.millisecondsSinceEpoch / 1000}" +
-        "&time_to=${dateEnd.Date.add(Duration(days: 1)).millisecondsSinceEpoch / 1000}" +
+        "&time_from=${dateStart.date.millisecondsSinceEpoch / 1000}" +
+        "&time_to=${dateEnd.date.add(Duration(days: 1)).millisecondsSinceEpoch / 1000}" +
         "&idClient=${Keys.CistApiKey}";
 
 static String get CistAllGroupsUrl

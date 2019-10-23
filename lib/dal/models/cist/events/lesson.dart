@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import '../models.dart';
 
 part 'lesson.jser.dart';
@@ -21,5 +19,7 @@ class Lesson {
   const Lesson(this.id, this.shortName, this.fullName, this.duration);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [HoursPlannedSerializer],
+)
 class LessonSerializer extends Serializer<Lesson> with _$LessonSerializer {}

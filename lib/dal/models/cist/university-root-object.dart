@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import 'models.dart';
 
 part 'university-root-object.jser.dart';
@@ -12,5 +10,7 @@ class UniversityRootObject {
   const UniversityRootObject(this.university);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [UniversitySerializer],
+)
 class UniversityRootObjectSerializer extends Serializer<UniversityRootObject> with _$UniversityRootObjectSerializer {}

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import '../models.dart';
 
 part 'timetable.jser.dart';
@@ -27,5 +25,7 @@ class Timetable {
   const Timetable(this.timeZone, this.events, this.groups, this.teachers, this.lessons, this.eventTypes);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [EventSerializer, GroupSerializer, TeacherSerializer, LessonSerializer, EventTypeSerializer],
+)
 class TimetableSerializer extends Serializer<Timetable> with _$TimetableSerializer {}

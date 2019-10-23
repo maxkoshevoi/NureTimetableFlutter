@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import '../models.dart';
 
 part 'speciality.jser.dart';
@@ -21,5 +19,7 @@ class Speciality {
   const Speciality(this.id, this.shortName, this.fullName, this.groups);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [GroupSerializer],
+)
 class SpecialitySerializer extends Serializer<Speciality> with _$SpecialitySerializer {}

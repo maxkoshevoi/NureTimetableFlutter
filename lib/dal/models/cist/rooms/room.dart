@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import '../models.dart';
 
 part 'room.jser.dart';
@@ -13,11 +11,11 @@ class Room {
   final String shortName;
 
   @Alias("floor")
-  final int? floor;
+  final int floor;
 
   @Alias("is_have_power")
   //[JsonConverter(typeof(StringBoolConverter))]
-  final bool? isHavePower;
+  final bool isHavePower;
 
   @Alias("auditory_types")
   final List<RoomType> roomTypes;
@@ -25,7 +23,9 @@ class Room {
   const Room(this.id, this.shortName, this.floor, this.isHavePower, this.roomTypes);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [RoomTypeSerializer],
+)
 class RoomSerializer extends Serializer<Room> with _$RoomSerializer {}
 
 

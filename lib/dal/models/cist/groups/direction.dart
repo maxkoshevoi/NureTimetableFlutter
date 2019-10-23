@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
 import '../models.dart';
 
 part 'direction.jser.dart';
@@ -24,5 +22,7 @@ class Direction {
   const Direction(this.id, this.shortName, this.fullName, this.groups, this.specialities);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [GroupSerializer, SpecialitySerializer],
+)
 class DirectionSerializer extends Serializer<Direction> with _$DirectionSerializer {}

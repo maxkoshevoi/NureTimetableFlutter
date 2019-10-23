@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
 part 'hours_planned.jser.dart';

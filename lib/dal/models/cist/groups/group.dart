@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
-import '../models.dart';
-
 part 'group.jser.dart';
 
 class Group {

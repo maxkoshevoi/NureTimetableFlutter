@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-
-import '../models.dart';
+import 'models.dart';
 
 part 'faculty.jser.dart';
 
@@ -26,5 +24,7 @@ class Faculty {
   const Faculty(this.id, this.shortName, this.fullName, this.departments, this.directions);
 }
 
-@GenSerializer()
+@GenSerializer(
+  serializers: [DepartmentSerializer, DirectionSerializer],
+)
 class FacultySerializer extends Serializer<Faculty> with _$FacultySerializer {}

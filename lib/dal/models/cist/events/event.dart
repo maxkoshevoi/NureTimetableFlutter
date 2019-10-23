@@ -1,5 +1,4 @@
 import 'package:jaguar_serializer/jaguar_serializer.dart';
-import 'package:nure_timetable/dal/helpers/serrialisation.dart';
 
 part 'event.jser.dart';
 
@@ -43,8 +42,8 @@ class Event {
 @GenSerializer(
   nullableFields: false,
   fields: const {
-    "start_time": const Field(processor: const SecondEpochProcessor()),
-    "end_time": const Field(processor: const SecondEpochProcessor())
+    "start_time": const Field(processor: const SecondsProcessor()),
+    "end_time": const Field(processor: const SecondsProcessor())
   }
 )
 class EventSerializer extends Serializer<Event> with _$EventSerializer {}

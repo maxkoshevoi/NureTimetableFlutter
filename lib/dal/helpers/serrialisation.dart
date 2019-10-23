@@ -18,17 +18,3 @@ class SwapProcessor<FromType> implements FieldProcessor<FromType, String> {
     return newValue;
   }
 }
-
-class SecondEpochProcessor implements FieldProcessor<DateTime, String> {
-  const SecondEpochProcessor();
-
-  DateTime deserialize(String input) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(int.parse(input) * Duration.millisecondsPerSecond);
-    return date;
-  }
-
-  String serialize(DateTime value) {
-    String newValue = (value.millisecondsSinceEpoch / Duration.millisecondsPerSecond).toString();
-    return newValue;
-  }
-}

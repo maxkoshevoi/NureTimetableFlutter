@@ -6,3 +6,5 @@ abstract class TimetableEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class LoadTimetable extends TimetableEvent {}

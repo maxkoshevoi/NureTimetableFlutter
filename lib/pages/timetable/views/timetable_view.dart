@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_listview/infinite_listview.dart';
 import 'package:intl/intl.dart';
 import 'package:nure_timetable/models/models.dart';
-import 'package:nure_timetable/pages/settings_page/settings_bloc.dart';
-import 'package:nure_timetable/pages/settings_page/settings_state.dart';
+import 'package:nure_timetable/pages/settings/settings_bloc.dart';
+import 'package:nure_timetable/pages/settings/settings_state.dart';
 import 'package:nure_timetable/pages/timetable/views/separated_column.dart';
 
 const double _topCellHeight = 52;
@@ -206,8 +206,8 @@ class _TimetableViewState extends State<TimetableView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(event.lesson.shortName),
-                  Text(event.type.shortName),
+                  Text("${event.lesson.shortName}"),
+                  Text("${event.type.shortName}"),
                 ],
               ),
             ),

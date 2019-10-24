@@ -5,8 +5,9 @@ import 'package:nure_timetable/i18n/strings.dart';
 import 'package:nure_timetable/models/dto/timetable_dto.dart';
 import 'package:nure_timetable/models/models.dart';
 import 'package:nure_timetable/pages/about/about_page.dart';
-import 'package:nure_timetable/pages/settings_page/settings_page.dart';
+import 'package:nure_timetable/pages/settings/settings_page.dart';
 import 'package:nure_timetable/pages/timetable/timetable_bloc.dart';
+import 'package:nure_timetable/pages/timetable/timetable_event.dart';
 import 'package:nure_timetable/pages/timetable/timetable_state.dart';
 import 'package:nure_timetable/pages/timetable/views/timetable_view.dart';
 
@@ -16,6 +17,12 @@ class TimetablePage extends StatefulWidget {
 }
 
 class _TimetablePageState extends State<TimetablePage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<TimetableBloc>(context).add(LoadTimetable());
+  }
+
   void _onEventTap(Event event) {
     showDialog(
       context: context,
@@ -76,7 +83,7 @@ class _TimetablePageState extends State<TimetablePage> {
       body: BlocBuilder<TimetableBloc, TimetableState>(
         builder: (context, state) {
           return TimetableView(
-            timetableDto: _createTimetableDtoMock(),
+            timetableDto: state is TimetableLoaded ? state.timetableDto : _createTimetableDtoMock(),
             eventClickListener: _onEventTap,
           );
         },

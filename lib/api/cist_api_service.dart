@@ -2,7 +2,8 @@ import "dart:async";
 
 import 'package:chopper/chopper.dart';
 import 'package:meta/meta.dart';
-import 'package:nure_timetable/api/models/cist/events/timetable.dart';
+
+import 'model/cist/events/timetable.dart';
 
 part 'cist_api_service.chopper.dart';
 
@@ -16,8 +17,12 @@ abstract class CistApiService extends ChopperService {
   static CistApiService create([ChopperClient client]) => _$CistApiService(client);
 
   @Get(
-    path: "P_API_EVEN_JSON?type_id={typeId}&timetable_id={timetableId}"
-        "&time_from={timeFrom}&time_to={timeTo}&idClient={apiKey}",
+    path: "P_API_EVEN_JSON"
+        "?type_id={typeId}"
+        "&timetable_id={timetableId}"
+        "&time_from={timeFrom}"
+        "&time_to={timeTo}"
+        "&idClient={apiKey}",
   )
   Future<Response<Timetable>> getCistTimetable({
     @required @Path() int typeId,

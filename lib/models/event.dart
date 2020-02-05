@@ -1,9 +1,8 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'models.dart';
 
-class Event implements Equatable {
+class Event {
   final EventType type;
   final DateTime start;
   final DateTime end;

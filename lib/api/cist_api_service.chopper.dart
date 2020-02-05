@@ -2,8 +2,6 @@
 
 part of 'cist_api_service.dart';
 
-//fixme remove
-
 // **************************************************************************
 // ChopperGenerator
 // **************************************************************************
@@ -17,7 +15,11 @@ class _$CistApiService extends CistApiService {
   final definitionType = CistApiService;
 
   Future<Response<Timetable>> getCistTimetable(
-      {int typeId, dynamic timetableId, dynamic timeFrom, dynamic timeTo, dynamic apiKey}) {
+      {int typeId,
+      dynamic timetableId,
+      dynamic timeFrom,
+      dynamic timeTo,
+      dynamic apiKey}) {
     final $url =
         '/ias/app/tt/P_API_EVEN_JSON?type_id=${typeId}&timetable_id=${timetableId}&time_from=${timeFrom}&time_to=${timeTo}&idClient=${apiKey}';
     final $request = Request('GET', $url, client.baseUrl);

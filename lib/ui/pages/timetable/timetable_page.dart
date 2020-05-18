@@ -20,6 +20,12 @@ class _TimetablePageState extends State<TimetablePage> {
   TimetablePageBloc _bloc = BlocProvider.getBloc<TimetablePageBloc>();
 
   @override
+  void initState() {
+    super.initState();
+    _bloc.loadTimeTable();
+  }
+
+  @override
   void dispose() {
     _bloc.dispose();
     super.dispose();
@@ -80,11 +86,11 @@ class _TimetablePageState extends State<TimetablePage> {
           )
         ],
       ),
-      body: AsyncStreamBuilder<void>(
+      body: AsyncStreamBuilder<TimetableDto>(
         _bloc.timetableSubject,
-        successBuilder: (_, state) {
+        successBuilder: (_, TimetableDto timetableDto) {
           return TimetableView(
-            timetableDto: _createTimetableDtoMock(),
+            timetableDto: _createTimetableDtoMock(), //timetableDto,
             eventClickListener: _onEventTap,
           );
         },

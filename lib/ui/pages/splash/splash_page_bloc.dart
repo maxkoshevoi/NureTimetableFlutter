@@ -33,6 +33,7 @@ class SplashPageBloc extends BaseBloc {
 
     await Storage().initializeLanguage();
     await Storage().initializePath();
+    await Storage().initializeSettings();
 
     _checkPermissions(_neededPermissions);
   }

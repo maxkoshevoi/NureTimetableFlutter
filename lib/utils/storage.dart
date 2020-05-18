@@ -13,7 +13,7 @@ class Storage {
   factory Storage() => _instance;
 
   static const KEY_LANGUAGE_CODE = 'KEY_LANGUAGE_CODE';
-  static const KEY_PER_PAGE = 'KEY_LANGUAGE_CODE';
+  static const KEY_PER_PAGE = 'KEY_PER_PAGE';
 
   ///
   /// General
@@ -62,9 +62,15 @@ class Storage {
 
   String get cacheDirectoryPath => _cacheDirectoryPath;
 
+  String _documentsDirectoryPath;
+
+  String get documentsDirectoryPath => _documentsDirectoryPath;
+
   Future<void> initializePath() async {
-    final appDirectory = await getApplicationSupportDirectory();
-    _cacheDirectoryPath = appDirectory.path;
+    final cacheDirectory = await getApplicationSupportDirectory();
+    final documentsDirectory = await getApplicationDocumentsDirectory();
+    _cacheDirectoryPath = cacheDirectory.path;
+    _documentsDirectoryPath = documentsDirectory.path;
   }
 
   ///

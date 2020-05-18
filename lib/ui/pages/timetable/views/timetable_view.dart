@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_listview/infinite_listview.dart';
 import 'package:intl/intl.dart';
+import 'package:nure_timetable/architecture/utils/async_stream_builder.dart';
+import 'package:nure_timetable/architecture/utils/states.dart';
 import 'package:nure_timetable/models/models.dart';
 import 'package:nure_timetable/utils/storage.dart';
 
@@ -111,21 +113,32 @@ class _TimetableViewState extends State<TimetableView> {
   Widget _buildTimetable() {
     return Expanded(
       child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          double timetableWidth = constraints.maxWidth;
-          double dayItemWidth = timetableWidth / Storage().daysPerPage;
-
-          return InfiniteListView.builder(
-            controller: _controller,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int dayAnchorOffset) {
-              DateTime currentDate = _anchor.add(Duration(days: dayAnchorOffset));
-
-              return _buildTimetableDay(dayItemWidth, currentDate);
+        builder: (_, BoxConstraints constraints) {
+          return AsyncStreamBuilder<int>(
+            Storage().daysPerPageSubject.map((value) => SuccessState(value)),
+            successBuilder: (_, int daysPerPage) {
+              return _buildTimetableWithDaysPerPage(constraints.maxWidth, daysPerPage);
+            },
+            initialBuilder: (_) {
+              return _buildTimetableWithDaysPerPage(constraints.maxWidth, Storage().daysPerPage);
             },
           );
         },
       ),
+    );
+  }
+
+  Widget _buildTimetableWithDaysPerPage(double timetableWidth, int daysPerPage) {
+    double dayItemWidth = timetableWidth / daysPerPage;
+
+    return InfiniteListView.builder(
+      controller: _controller,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int dayAnchorOffset) {
+        DateTime currentDate = _anchor.add(Duration(days: dayAnchorOffset));
+
+        return _buildTimetableDay(dayItemWidth, currentDate);
+      },
     );
   }
 
@@ -200,8 +213,8 @@ class _TimetableViewState extends State<TimetableView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(event.lesson.shortName),
-                  Text(event.type.shortName),
+                  Text("${event.lesson.shortName}"),
+                  Text("${event.type.shortName}"),
                 ],
               ),
             ),

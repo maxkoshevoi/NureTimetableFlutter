@@ -25,7 +25,7 @@ class App extends StatelessWidget {
     return BlocProvider(
       blocs: [
         Bloc((Inject i) => SplashPageBloc(i.get<ApiClient>()), singleton: false),
-        Bloc((Inject i) => TimetablePageBloc(), singleton: false),
+        Bloc((Inject i) => TimetablePageBloc(i.get<ApiClient>()), singleton: false),
         Bloc((Inject i) => SettingsPageBloc(), singleton: false),
       ],
       dependencies: [

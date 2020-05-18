@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
+import 'package:nure_timetable/models/enums/timetable_entity_type.dart';
 import 'package:nure_timetable/res/strings.dart';
 
-import 'api_strings.dart';
-import 'model/login_request.dart';
-import 'model/register_request.dart';
+import 'cist_api_service.dart';
+import 'model/cist/events/timetable.dart';
 import 'model/request_error.dart';
 import 'util/error_json_converter.dart';
 import 'util/example_interceptor.dart';
@@ -19,9 +19,9 @@ class ApiClient {
   ApiClient(this.context);
 
   static final ChopperClient chopper = ChopperClient(
-    baseUrl: baseUrl,
+    baseUrl: "http://cist.nure.ua",
     services: [
-//      ApiService.create(),
+      CistApiService.create(),
     ],
     converter: JaguarJsonConverter(),
     errorConverter: ErrorJsonConverter(),
@@ -41,16 +41,29 @@ class ApiClient {
   /// Data API
   ///
 
-  //TODO add API
-  Future<String> register(RegisterRequest request) async {
-    await Future.delayed(Duration(seconds: 2));
-    return request.email;
+  Future<Timetable> getCistTimetable() async {
+    TimetableEntityType type = TimetableEntityType.Group;
+    int entityId = 5721659;
+    DateTime dateStart = onlyDate(DateTime.now().add(Duration(days: -30 * 6)));
+    DateTime dateEnd = onlyDate(DateTime.now().add(Duration(days: 30 * 6)));
+
+    int timeFrom = dateStart.toUtc().millisecondsSinceEpoch ~/ 1000;
+    int timeTo = dateEnd.add(Duration(days: 1)).toUtc().millisecondsSinceEpoch ~/ 1000;
+
+    Response<Timetable> response = await _callRequest(
+      chopper.getService<CistApiService>().getCistTimetable(
+            typeId: type.index,
+            timetableId: entityId,
+            timeFrom: timeFrom,
+            timeTo: timeTo,
+            apiKey: null,
+          ),
+    );
+    return response.body;
   }
 
-  //TODO add API
-  Future<String> login(LoginRequest request) async {
-    await Future.delayed(Duration(seconds: 2));
-    return request.email;
+  DateTime onlyDate(DateTime a) {
+    return DateTime(a.year, a.month, a.day);
   }
 
   ///

@@ -4,8 +4,12 @@ import 'package:nure_timetable/api/model/api_json_serializers.dart';
 class JaguarJsonConverter extends JsonConverter {
   @override
   Response<ResultType> convertResponse<ResultType, Item>(Response response) {
+//    response = response.replaceAll("&amp;", "&");
+//    response = response.replaceAll("\"events\":[\n]}]", "\"events\": []");
     final jsonResult = decodeJson(response);
-    return jsonResult.replace<ResultType>(body: _decode<Item>(jsonResult.body));
+    return jsonResult.replace<ResultType>(
+      body: _decode<Item>(jsonResult.body),
+    );
   }
 
   dynamic _decode<Item>(entity) {

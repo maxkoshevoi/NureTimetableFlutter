@@ -11,4 +11,8 @@ const Map<String, String> defaultJsonHeaders = {
   "Accept-Language": "en",
 };
 
-const String urlExample = "users";
+String get cistAllGroupsUrl => "http://cist.nure.ua/ias/app/tt/P_API_GROUP_JSON";
+
+String get cistAllTeachersUrl => "http://cist.nure.ua/ias/app/tt/P_API_PODR_JSON";
+
+String get cistAllRoomsUrl => "http://cist.nure.ua/ias/app/tt/P_API_AUDITORIES_JSON";
